@@ -1,23 +1,27 @@
 import boto3
 import os
 from botocore.exceptions import NoCredentialsError
+from botocore import UNSIGNED
+from botocore.config import Config
 
-def download_from_s3(bucket_name, object_key, local_file_path):
-    # Create an S3 client
-    s3 = boto3.client('s3')
-    if not os.path.exists("./trained_models/"):
-        os.mkdir("./trained_models/")
+#constants
+bucket_name = "pretrained-baseline-model"
 
-        try:
-            # Download the file
-            s3.download_file(bucket_name, object_key, local_file_path)
-            print(f"Downloaded {object_key} from {bucket_name} to {local_file_path}")
-        except NoCredentialsError:
-            print("Credentials not available or incorrect.")
+#download_function
+def download_from_s3():
+    s3 = boto3.resource('s3', config=Config(signature_version=UNSIGNED))
+    bucket_name = "pretrained-baseline-model"
 
-# Replace these values with your own
-bucket_name = 'your-s3-bucket-name'
-object_key = 'path/to/your/file.txt'
-local_file_path = 'local/file/path.txt'
+    # Create the 'preprocessing' directory if it doesn't exist
+    if not os.path.exists('./pretrained/'):
+        os.makedirs('./pretrained/')
 
-download_from_s3(bucket_name, object_key, local_file_path)
+    # Get a list of all objects in the bucket
+    bucket = s3.Bucket(bucket_name)
+    objects = bucket.objects.all()
+    for obj in objects:
+        file_name = obj.key
+        if file_name not in os.listdir('./pretrained'):
+
+            bucket.download_file(file_name, f'./pretrained/{file_name}')
+        continue

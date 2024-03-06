@@ -22,6 +22,7 @@ from statistics import mean
 
 from albumentations import Compose, PadIfNeeded, Resize
 from transforms.albu import IsotropicResize
+from aws_s3_d import download_from_s3
 
 from models.size_invariant_timesformer import SizeInvariantTimeSformer
 
@@ -36,6 +37,8 @@ import os
 device = torch.device("cpu")
 with open("config/size_invariant_timesformer.yaml", 'r') as ymlfile:
     config = yaml.safe_load(ymlfile)
+
+download_from_s3()
 model_path = "pretrained/MINTIME_XC_Model_checkpoint30"
 ROOT_DIR = "C:/Users/Asus/Desktop/Phosphene.AI/timesformer/MINTIME-Multi-Identity-size-iNvariant-TIMEsformer-for-Video-Deepfake-Detection/"
 extractor_path = "pretrained/MINTIME_XC_Extractor_checkpoint30"
