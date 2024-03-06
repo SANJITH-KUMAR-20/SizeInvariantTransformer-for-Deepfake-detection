@@ -1,4 +1,10 @@
 import setuptools
+from setuptools import find_packages
+
+
+requirements = []
+with open("requirements.txt", "r") as f:
+    requirements = f.read().splitlines()
 
 setuptools.setup(
     name = "deepcheck",
@@ -6,16 +12,12 @@ setuptools.setup(
     author = "PhospheneAI",
     author_email = "sanjith.kumar@phospheneai.com",
     description = "baseline deepcheck module",
-    url = "package URL",
-    project_urls = {
-        "Bug Tracker": "package issues URL",
-    },
+    url = "https://github.com/SANJITH-KUMAR-20/SizeInvariantTransformer-for-Deepfake-detection",
+    packages=find_packages(),
+    include_package_data=True,
+    install_requires=requirements
     classifiers = [
-        "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
+        "Programming Language :: Python :: 3.11"
     ],
-    package_dir = {"": "src"},
-    packages = setuptools.find_packages(where="src"),
     python_requires = ">=3.11"
 )

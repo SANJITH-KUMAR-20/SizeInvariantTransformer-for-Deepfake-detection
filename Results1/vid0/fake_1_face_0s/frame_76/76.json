@@ -1,0 +1,16 @@
+{
+      "frame_number": 76,
+      "identities": {
+            "0": {
+                  "bbox": [
+                        212.8568572998047,
+                        49.07371139526367,
+                        305.5918884277344,
+                        175.64151000976562
+                  ],
+                  "pred_result": 100.0,
+                  "pred_label": "Fake"
+            }
+      },
+      "frame_path": "Results1\\vid0\\fake_1_face_0s\\frame_76\\76.jpg"
+}

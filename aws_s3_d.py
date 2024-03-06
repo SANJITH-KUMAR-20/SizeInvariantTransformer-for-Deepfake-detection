@@ -8,7 +8,7 @@ from botocore.config import Config
 bucket_name = "pretrained-baseline-model"
 
 #download_function
-def download_from_s3():
+def download_from_s3(key_names):
     s3 = boto3.resource('s3', config=Config(signature_version=UNSIGNED))
     bucket_name = "pretrained-baseline-model"
 
@@ -19,8 +19,8 @@ def download_from_s3():
     # Get a list of all objects in the bucket
     bucket = s3.Bucket(bucket_name)
     objects = bucket.objects.all()
-    for obj in objects:
-        file_name = obj.key
+    for key in key_names:
+        file_name = key
         if file_name not in os.listdir('./pretrained'):
 
             bucket.download_file(file_name, f'./pretrained/{file_name}')

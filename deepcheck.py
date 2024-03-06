@@ -38,7 +38,7 @@ device = torch.device("cpu")
 with open("config/size_invariant_timesformer.yaml", 'r') as ymlfile:
     config = yaml.safe_load(ymlfile)
 
-download_from_s3()
+download_from_s3(["MINTIME_XC_Model_checkpoint30", "MINTIME_XC_Extractor_checkpoint30"])
 model_path = "pretrained/MINTIME_XC_Model_checkpoint30"
 ROOT_DIR = "C:/Users/Asus/Desktop/Phosphene.AI/timesformer/MINTIME-Multi-Identity-size-iNvariant-TIMEsformer-for-Video-Deepfake-Detection/"
 extractor_path = "pretrained/MINTIME_XC_Extractor_checkpoint30"
