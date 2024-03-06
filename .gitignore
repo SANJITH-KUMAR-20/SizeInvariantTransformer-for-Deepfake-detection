@@ -12,3 +12,4 @@ test_linear.py
 test_timesformer.py
 ./pretrained/
 /pretrained/
+Tester.ipynb

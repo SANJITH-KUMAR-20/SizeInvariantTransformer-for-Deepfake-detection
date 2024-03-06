@@ -1,0 +1,2 @@
+include requirements.txt
+recursive-include DeepCheck *.py *.yaml *.yml *.json *.cjg *.txt
