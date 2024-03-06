@@ -486,9 +486,9 @@ def generate_output_video(video_path, pred, identity_attentions, aggregated_atte
 
     identities_bboxes = get_identities_bboxes(identities)
     available_frames_keys = [frame for frame in identities_bboxes]
-    path = os.path.join("Results1",video_dir,os.path.basename(video_path).replace(".mp4","s"))
-    if not os.path.exists(path):
-        os.makedirs(path)
+    # path = os.path.join("Results1",video_dir,os.path.basename(video_path).replace(".mp4","s"))
+    # if not os.path.exists(path):
+    #     os.makedirs(path)
     cap = cv2.VideoCapture(video_path)
     width  = cap.get(3)  
     height = cap.get(4) 
@@ -510,9 +510,9 @@ def generate_output_video(video_path, pred, identity_attentions, aggregated_atte
 
             bbox = identities_bboxes[nearest_frame_index]
             for identity_index, identity_bbox in enumerate(bbox):
-                identity_path = os.path.join(path,f"frame_{frame_index}",f"identity_{identity_index}")
-                if not os.path.exists(identity_path):
-                    os.makedirs(identity_path)
+                # identity_path = os.path.join(path,f"frame_{frame_index}",f"identity_{identity_index}")
+                # if not os.path.exists(identity_path):
+                #     os.makedirs(identity_path)
                 config_gg["identities"][identity_index] = {}
                 config_gg["identities"][identity_index]["bbox"] = identity_bbox 
                 img = extract_faces(frame, identity_bbox)
@@ -538,7 +538,7 @@ def generate_output_video(video_path, pred, identity_attentions, aggregated_atte
 
 
 
-                cv2.imwrite(os.path.join(identity_path,f"{uuid.uuid4()}.jpg"), img)
+                # cv2.imwrite(os.path.join(identity_path,f"{uuid.uuid4()}.jpg"), img)
             
                 color = (0, green, red)
                 frame = draw_border(frame, (xmin,ymin), (xmax,ymax), color, 2, 10, 20)
@@ -546,10 +546,10 @@ def generate_output_video(video_path, pred, identity_attentions, aggregated_atte
                 
                 # config_gg["identities"][identity_index]["img"] = frame
 
-            config_gg["frame_path"] = os.path.join(path, f"frame_{frame_index}", f"{frame_index}.jpg")
-            cv2.imwrite(config_gg["frame_path"], frame)
-            with open(os.path.join(path, f"frame_{frame_index}",f"{frame_index}.json"), "w") as f:
-                json.dump(config_gg, f, indent = 6)
+            # config_gg["frame_path"] = os.path.join(path, f"frame_{frame_index}", f"{frame_index}.jpg")
+            # cv2.imwrite(config_gg["frame_path"], frame)
+            # with open(os.path.join(path, f"frame_{frame_index}",f"{frame_index}.json"), "w") as f:
+            #     json.dump(config_gg, f, indent = 6)
             output.write(frame)        
         else:
             break
@@ -563,30 +563,29 @@ def generate_output_video(video_path, pred, identity_attentions, aggregated_atte
 def save_config(vid):
     count = 0
     path = []
-    for video_path in vid:
-        print(video_path)
-        bboxes_dict = detect_faces(video_path)
-        print("Face detection completed.")
-        
-        
-        print("Cropping faces from the video...")
-        crops = extract_crops(video_path, bboxes_dict)
-        print("Faces cropping completed.")
-        
-        
-        print("Clustering faces...")
-        clustered_faces = cluster_faces(crops)
-        print("Faces clustering completed.")
+    video_path = vid
+    print(video_path)
+    bboxes_dict = detect_faces(video_path)
+    print("Face detection completed.")
+    
+    
+    print("Cropping faces from the video...")
+    crops = extract_crops(video_path, bboxes_dict)
+    print("Faces cropping completed.")
+    
+    
+    print("Clustering faces...")
+    clustered_faces = cluster_faces(crops)
+    print("Faces clustering completed.")
 
-        print("Searching for fakes in the video...")
-        pred, identity_attentions, aggregated_attentions, identities, frames_per_identity = predict(video_path, clustered_faces, config, model_path)
-        if pred > 0.5:
-            print("The video is fake ("+str(round(pred*100,2)) + "%), showing video result...")
-        else:
-            print("The video is pristine ("+str(round((1-pred)*100,2)) + "%), showing video result...")
+    print("Searching for fakes in the video...")
+    pred, identity_attentions, aggregated_attentions, identities, frames_per_identity = predict(video_path, clustered_faces, config, model_path)
+    if pred > 0.5:
+        print("The video is fake ("+str(round(pred*100,2)) + "%), showing video result...")
+    else:
+        print("The video is pristine ("+str(round((1-pred)*100,2)) + "%), showing video result...")
 
-        path.append(generate_output_video(video_path,pred,identity_attentions, aggregated_attentions, identities, frames_per_identity, f"vid{count}"))
-        count+=1
+    path.append(generate_output_video(video_path,pred,identity_attentions, aggregated_attentions, identities, frames_per_identity, f"vid{count}"))
     return path
 
 #------------------------------------------------------------------------------------------------------------------------------------------------#

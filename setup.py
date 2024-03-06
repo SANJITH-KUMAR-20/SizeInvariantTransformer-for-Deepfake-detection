@@ -15,7 +15,7 @@ setuptools.setup(
     url = "https://github.com/SANJITH-KUMAR-20/SizeInvariantTransformer-for-Deepfake-detection",
     packages=find_packages(),
     include_package_data=True,
-    install_requires=requirements
+    install_requires=requirements,
     classifiers = [
         "Programming Language :: Python :: 3.11"
     ],
