@@ -3,7 +3,7 @@ from setuptools import find_packages
 
 
 requirements = []
-with open("DeepCheck/requirements.txt", "r") as f:
+with open("requirements.txt", "r") as f:
     requirements = f.read().splitlines()
 
 setuptools.setup(

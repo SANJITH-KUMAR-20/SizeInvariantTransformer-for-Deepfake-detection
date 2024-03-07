@@ -1,0 +1,9 @@
+Metadata-Version: 2.1
+Name: deep-check
+Version: 0.0.1
+Summary: baseline deepcheck module
+Home-page: https://github.com/SANJITH-KUMAR-20/SizeInvariantTransformer-for-Deepfake-detection
+Author: PhospheneAI
+Author-email: sanjith.kumar@phospheneai.com
+Classifier: Programming Language :: Python :: 3.11
+Requires-Python: >=3.11
