@@ -3,11 +3,11 @@ from setuptools import find_packages
 
 
 requirements = []
-with open("requirements.txt", "r") as f:
+with open("DeepCheck/requirements.txt", "r") as f:
     requirements = f.read().splitlines()
 
 setuptools.setup(
-    name = "deepcheck",
+    name = "DeepCheck",
     version = "0.0.1",
     author = "PhospheneAI",
     author_email = "sanjith.kumar@phospheneai.com",
